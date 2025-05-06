@@ -3,8 +3,6 @@
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
 import { cn } from "@/lib/utils"
-import { forwardRef } from "react"
-import { useTheme } from "next-themes"
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
