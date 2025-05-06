@@ -244,7 +244,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          Click the card to flip and access navigation
+          Click the card to flip
         </motion.p>
       </div>
     </main>
