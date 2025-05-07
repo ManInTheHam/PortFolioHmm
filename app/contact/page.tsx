@@ -81,7 +81,7 @@ export default function Contact() {
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <h2 className="mb-4 md:mb-6 text-xl md:text-2xl font-bold">Get in Touch</h2>
             <p className="mb-6 text-sm md:text-base text-white/80">
-              Got a groundbreaking idea, a million-dollar opportunity, or just want to rant about AI? I'm all ears—well, maybe not all ears.
+              Got a groundbreaking idea, a million-dollar opportunity, or just want to rant about AI? Im all ears—well, maybe not all ears.
             </p>
 
             <div className="space-y-4">
