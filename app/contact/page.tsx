@@ -13,6 +13,7 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 
 export default function Contact() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -21,12 +22,19 @@ export default function Contact() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+    // Simulate loading with progress
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval)
+          setTimeout(() => setIsLoading(false), 200) // Short delay after reaching 100%
+          return 100
+        }
+        return prev + Math.floor(Math.random() * 8) + 3 // Random increment between 3-10%
+      })
+    }, 150)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(loadingInterval)
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,20 +54,11 @@ export default function Contact() {
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-black">
-        <div className="flex flex-col items-center gap-6">
-          <div className="pacman-container">
-            <div className="pacman">
-              <div className="pacman-top"></div>
-              <div className="pacman-bottom"></div>
-            </div>
-            <div className="dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
+        <div className="nfs-classic-loading">
+          <div className="nfs-loading-text">LOADING CONTACT...</div>
+          <div className="nfs-progress-container">
+            <div className="nfs-progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <p className="text-lg font-light tracking-wider text-white">LOADING CONTACT</p>
         </div>
       </div>
     )
@@ -82,13 +81,13 @@ export default function Contact() {
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <h2 className="mb-4 md:mb-6 text-xl md:text-2xl font-bold">Get in Touch</h2>
             <p className="mb-6 text-sm md:text-base text-white/80">
-              Im always open to new opportunities, collaborations, or just a friendly chat about technology and design.
+              Got a groundbreaking idea, a million-dollar opportunity, or just want to rant about AI? I'm all ears—well, maybe not all ears.
             </p>
 
             <div className="space-y-4">
               <motion.div className="flex items-center gap-3" whileHover={{ x: 5 }}>
                 <Mail className="h-4 w-4 md:h-5 md:w-5 text-white" />
-                <span className="text-sm md:text-base">joshi.soham27@gmail.com</span>
+                <span className="text-sm md:text-base">joshi.soham27@ggmail.com</span>
               </motion.div>
               <motion.div className="flex items-center gap-3" whileHover={{ x: 5 }}>
                 <Github className="h-4 w-4 md:h-5 md:w-5 text-white" />

@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Github, Mail, FileText, User, Sun, Moon } from "lucide-react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import Image from "next/image"
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const [isFlipped, setIsFlipped] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
@@ -20,10 +21,18 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true)
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 3000) // Longer loading time to see the Pacman animation
+
+    // Simulate loading with progress
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval)
+          setTimeout(() => setIsLoading(false), 200) // Short delay after reaching 100%
+          return 100
+        }
+        return prev + Math.floor(Math.random() * 5) + 1 // Random increment between 1-5%
+      })
+    }, 150)
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
@@ -31,7 +40,7 @@ export default function Home() {
 
     window.addEventListener("mousemove", handleMouseMove)
     return () => {
-      clearTimeout(timer)
+      clearInterval(loadingInterval)
       window.removeEventListener("mousemove", handleMouseMove)
     }
   }, [])
@@ -64,22 +73,11 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-black">
-        <div className="flex flex-col items-center gap-6">
-          <div className="pacman-container">
-            <div className="pacman">
-              <div className="pacman-top"></div>
-              <div className="pacman-bottom"></div>
-            </div>
-            <div className="dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
+        <div className="nfs-classic-loading">
+          <div className="nfs-loading-text">LOADING...</div>
+          <div className="nfs-progress-container">
+            <div className="nfs-progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <p className="text-lg font-light tracking-wider text-white">
-            <span className="animate-pulse">LOADING</span>
-          </p>
         </div>
       </div>
     )
@@ -122,7 +120,7 @@ export default function Home() {
                 animate={{
                   rotateY: 0,
                   rotateX: rotation.x,
-                  y: rotation.y,
+                  rotateY: rotation.y,
                 }}
                 exit={{ rotateY: -180 }}
                 transition={{
@@ -160,7 +158,7 @@ export default function Home() {
                     <p className="text-lg md:text-xl font-light tracking-wider text-white/90">.engineer</p>
                   </div>
                   <p className="text-xs md:text-sm font-light tracking-widest text-white/70">
-                    <span className="text-white/80">Hmm</span> 
+                    Hmm let me Think
                   </p>
                 </div>
               </motion.div>
@@ -172,7 +170,7 @@ export default function Home() {
                 animate={{
                   rotateY: 0,
                   rotateX: rotation.x,
-                  y: rotation.y,
+                  rotateY: rotation.y,
                 }}
                 exit={{ rotateY: 180 }}
                 transition={{
@@ -239,12 +237,12 @@ export default function Home() {
         </div>
 
         <motion.p
-          className="mt-6 md:mt-8 text-center text-xs md:text-sm font-light text-white/60"
+          className="mt-8 md:mt-8 text-center text-xs md:text-sm font-light text-white/60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
         >
-          Click the card to flip
+          Click the card to flip and access navigation
         </motion.p>
       </div>
     </main>

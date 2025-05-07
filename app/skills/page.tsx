@@ -9,15 +9,23 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 
 export default function Skills() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+    // Simulate loading with progress
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval)
+          setTimeout(() => setIsLoading(false), 200) // Short delay after reaching 100%
+          return 100
+        }
+        return prev + Math.floor(Math.random() * 8) + 3 // Random increment between 3-10%
+      })
+    }, 150)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(loadingInterval)
   }, [])
 
   const skills = [
@@ -46,20 +54,11 @@ export default function Skills() {
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-black">
-        <div className="flex flex-col items-center gap-6">
-          <div className="pacman-container">
-            <div className="pacman">
-              <div className="pacman-top"></div>
-              <div className="pacman-bottom"></div>
-            </div>
-            <div className="dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
+        <div className="nfs-classic-loading">
+          <div className="nfs-loading-text">LOADING SKILLS...</div>
+          <div className="nfs-progress-container">
+            <div className="nfs-progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <p className="text-lg font-light tracking-wider text-white">LOADING SKILLS</p>
         </div>
       </div>
     )
@@ -76,7 +75,7 @@ export default function Skills() {
           <h1 className="text-2xl md:text-3xl font-bold tracking-wider md:ml-auto">SKILLS & RESUME</h1>
           {!isMobile && (
             <Button variant="outline" className="md:ml-6 border-white text-white hover:bg-white/10" asChild>
-              <Link href="/image/SCJ_CV.pdf" target="_blank" download>
+              <Link href="./image/SCJ_CV.pdf" target="_blank" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
               </Link>

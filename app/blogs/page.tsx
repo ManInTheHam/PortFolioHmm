@@ -8,15 +8,23 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 
 export default function Blogs() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+    // Simulate loading with progress
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval)
+          setTimeout(() => setIsLoading(false), 200) // Short delay after reaching 100%
+          return 100
+        }
+        return prev + Math.floor(Math.random() * 8) + 3 // Random increment between 3-10%
+      })
+    }, 150)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(loadingInterval)
   }, [])
 
   const blogs = [
@@ -27,26 +35,16 @@ export default function Blogs() {
       excerpt: "Exploring the Golang Programming Language.",
       link: "https://open.substack.com/pub/manintheham/p/how-i-started-learning-go-golang?r=5l6uyg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false",
     },
-
   ]
 
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-black">
-        <div className="flex flex-col items-center gap-6">
-          <div className="pacman-container">
-            <div className="pacman">
-              <div className="pacman-top"></div>
-              <div className="pacman-bottom"></div>
-            </div>
-            <div className="dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
+        <div className="nfs-classic-loading">
+          <div className="nfs-loading-text">LOADING BLOGS...</div>
+          <div className="nfs-progress-container">
+            <div className="nfs-progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <p className="text-lg font-light tracking-wider text-white">LOADING BLOGS</p>
         </div>
       </div>
     )
@@ -83,7 +81,7 @@ export default function Blogs() {
               </div>
               <p className="text-sm md:text-base text-white/80">{blog.excerpt}</p>
               <div className="mt-3 md:mt-4">
-                <Link href="https://open.substack.com/pub/manintheham/p/how-i-started-learning-go-golang?r=5l6uyg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false" className="text-white hover:text-gray-300">
+                <Link href="#" className="text-white hover:text-gray-300">
                   Read more →
                 </Link>
               </div>

@@ -2,21 +2,29 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Github } from "lucide-react"
 import Link from "next/link"
 import { useMediaQuery } from "@/hooks/use-media-query"
 
 export default function Projects() {
   const [isLoading, setIsLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const isMobile = useMediaQuery("(max-width: 768px)")
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+    // Simulate loading with progress
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval)
+          setTimeout(() => setIsLoading(false), 200) // Short delay after reaching 100%
+          return 100
+        }
+        return prev + Math.floor(Math.random() * 8) + 3 // Random increment between 3-10%
+      })
+    }, 150)
 
-    return () => clearTimeout(timer)
+    return () => clearInterval(loadingInterval)
   }, [])
 
   const projects = [
@@ -44,20 +52,11 @@ export default function Projects() {
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-black">
-        <div className="flex flex-col items-center gap-6">
-          <div className="pacman-container">
-            <div className="pacman">
-              <div className="pacman-top"></div>
-              <div className="pacman-bottom"></div>
-            </div>
-            <div className="dots">
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
+        <div className="nfs-classic-loading">
+          <div className="nfs-loading-text">LOADING PROJECTS...</div>
+          <div className="nfs-progress-container">
+            <div className="nfs-progress-bar" style={{ width: `${loadingProgress}%` }}></div>
           </div>
-          <p className="text-lg font-light tracking-wider text-white">LOADING PROJECTS</p>
         </div>
       </div>
     )
@@ -72,7 +71,7 @@ export default function Projects() {
             <span>Back to Card</span>
           </Link>
           <h1 className="ml-auto text-2xl md:text-3xl font-bold tracking-wider">
-            <span className="text-white">PRO</span>JECTS
+            <span className="text-white-500">PRO</span>JECTS
           </h1>
         </div>
 
@@ -87,9 +86,17 @@ export default function Projects() {
               whileHover={{ scale: isMobile ? 1.01 : 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
-              <h2 className="mb-2 md:mb-3 text-lg md:text-xl font-bold text-white group-hover:text-white">
-                {project.title}
-              </h2>
+              <div className="flex justify-between items-start mb-2 md:mb-3">
+                <h2 className="text-lg md:text-xl font-bold text-white group-hover:text-white">{project.title}</h2>
+                <Link
+                  href={"https://github.com/ManInTheHam"} 
+                  target="_blank"
+                  className="text-white/70 hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Github className="h-5 w-5" />
+                </Link>
+              </div>
               <p className="mb-3 md:mb-4 text-sm md:text-base text-white/70">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
