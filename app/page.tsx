@@ -118,7 +118,6 @@ export default function Home() {
                 className="absolute h-full w-full rounded-xl bg-black p-6 md:p-8 shadow-xl"
                 initial={{ rotateY: 180 }}
                 animate={{
-                  rotateY: 0,
                   rotateX: rotation.x,
                   rotateY: rotation.y,
                 }}
@@ -168,7 +167,6 @@ export default function Home() {
                 className="absolute h-full w-full rounded-xl bg-zinc-900 p-6 md:p-8 shadow-xl"
                 initial={{ rotateY: -180 }}
                 animate={{
-                  rotateY: 0,
                   rotateX: rotation.x,
                   rotateY: rotation.y,
                 }}
