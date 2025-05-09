@@ -81,7 +81,7 @@ export default function Blogs() {
               </div>
               <p className="text-sm md:text-base text-white/80">{blog.excerpt}</p>
               <div className="mt-3 md:mt-4">
-                <Link href="#" className="text-white hover:text-gray-300">
+                <Link href="https://open.substack.com/pub/manintheham/p/how-i-started-learning-go-golang?r=5l6uyg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false" className="text-white hover:text-gray-300">
                   Read more →
                 </Link>
               </div>
