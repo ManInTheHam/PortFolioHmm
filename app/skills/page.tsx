@@ -75,7 +75,7 @@ export default function Skills() {
           <h1 className="text-2xl md:text-3xl font-bold tracking-wider md:ml-auto">SKILLS & RESUME</h1>
           {!isMobile && (
             <Button variant="outline" className="md:ml-6 border-white text-white hover:bg-white/10" asChild>
-              <Link href="./public/SCJ_CV.pdf" target="_blank" download>
+              <Link href="https://drive.google.com/file/d/1NQXPHifl0_na4IcxAS20JYunB5itMvu-/view?usp=sharing" target="_blank" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
               </Link>
@@ -86,7 +86,7 @@ export default function Skills() {
         {isMobile && (
           <div className="mb-6 flex justify-end">
             <Button variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-              <Link href="/resume.pdf" target="_blank" download>
+              <Link href="https://drive.google.com/file/d/1NQXPHifl0_na4IcxAS20JYunB5itMvu-/view?usp=sharing" target="_blank" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
               </Link>
