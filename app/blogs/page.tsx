@@ -35,6 +35,14 @@ export default function Blogs() {
       excerpt: "Exploring the Golang Programming Language.",
       link: "https://open.substack.com/pub/manintheham/p/how-i-started-learning-go-golang?r=5l6uyg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false",
     },
+
+    {
+      id: 2,
+      title: "Solana Breakout Hackathon 2025: India's Record-Breaking Rise and the Projects You Can't Missourney into Simplicity and Speed",
+      date: "July 2, 2025",
+      excerpt: "Superteamearn Bounty.",
+      link: "https://open.substack.https://manintheham.substack.com/p/solana-breakout-hackathon-2025-indiascom/pub/manintheham/p/how-i-started-learning-go-golang?r=5l6uyg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=false",
+    },
   ]
 
   if (isLoading) {
