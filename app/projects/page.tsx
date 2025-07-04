@@ -30,7 +30,7 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "MediScan",
+      title: "PrescriptionOCR",
       description: "A smart web app that reads handwritten prescriptions using OCR and ML to digitize medical records.",
       tags: ["Python", "Next.js", "ML", "AI", "OCR"]
     },
